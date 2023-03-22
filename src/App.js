@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import { useForm } from "react-hook-form";
 import './App.css';
 
 function App() {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+console.log(errors);
+
+
+function err (data){
+}
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <form onSubmit={handleSubmit (err)}>
+    <input  type="text" placeholder='name'{...register("name", { required: true })}/>
+    {errors.name && <label style={{color: "red"}}>First Name cannot be empty</label>}
+
+    <input  type="text" placeholder='lastname'{...register("lastname", { required: true })}/>
+    {errors.lastname && <label style={{color: "red"}}>Last Name cannot be empty</label>}
+    
+    <input  type="email" placeholder='Email Address'{...register("EmailAddress", { required: true })}/>
+    {errors.EmailAddress && <label style={{color: "red"}}>Looks like this is not an email</label>}
+   
+    <input  type="Password" placeholder='Password'{...register("Password", { required: true })}/>
+    {errors.Password && <label style={{color: "red"}}>Password cannot be empty</label>}
+    
+    <button type="submit">CLAIM YOUR FREE TRIAL</button>
+    </form>
+    </>
   );
 }
 
